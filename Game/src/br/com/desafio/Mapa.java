@@ -14,11 +14,9 @@ public class Mapa {
 	private List<ArrayList<PosicaoNoMapa>> mapa;
 	private int linhas;
 	private Gerenciador gerenciador;
-	private List<ElementoAutoMovivel> autoMoviveis;
 
 	public Mapa(Gerenciador gerenciador) {
 		this.gerenciador = gerenciador;
-		this.autoMoviveis = new ArrayList<>();
 		this.mapa = new ArrayList<>();
 		this.linhas = 15;
 	}
@@ -53,14 +51,17 @@ public class Mapa {
 									.getPosicaoNoMapa(new Coordenada(
 											linhaSendoComposta, i)));
 							if (elemento instanceof ElementoAutoMovivel) {
-								this.autoMoviveis
-										.add((ElementoAutoMovivel) elemento);
+								this.gerenciador.adicionaElementoAutoMovivel();
+							}else if(elemento instanceof Pacman){
+								this.gerenciador.setPacman((Pacman)elemento);
 							}
+						}
+						if(elemento instanceof Antagonista){
+							this.gerenciador.adicionaAntagonista();
 						}
 						this.getPosicaoNoMapa(
 								new Coordenada(linhaSendoComposta, i))
 								.inicializa(elemento);
-
 					}
 
 					linhaSendoComposta++;
@@ -105,10 +106,6 @@ public class Mapa {
 
 	public void setLinhas(int linhas) {
 		this.linhas = linhas;
-	}
-
-	public List<ElementoAutoMovivel> getAutoMoviveis() {
-		return autoMoviveis;
 	}
 
 	/**

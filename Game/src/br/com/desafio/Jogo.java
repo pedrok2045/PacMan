@@ -11,11 +11,20 @@ package br.com.desafio;
 public class Jogo{
 
 	private Gerenciador gerenciador;
+	private int pontos;
 	
 	public Jogo inicializar(){
+		
+		this.pontos = 0;
+		
 		this.gerenciador = new Gerenciador();
+		this.gerenciador.setJogo(this);
 		gerenciador.carregarMapaInicial();
 		return this;
+	}
+	
+	public void marcarPonto(int pontos){
+		this.pontos += pontos;
 	}
 
 }

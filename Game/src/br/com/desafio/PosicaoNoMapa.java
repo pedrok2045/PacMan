@@ -35,8 +35,18 @@ public class PosicaoNoMapa implements ElementoGrafico{
 	
 	//esse método é usado somente pelo mapa, pois coloca um elemento na posição 1
 	//da PosicaoNoMapa ignorando se tem algo nela, pois considera q tenha somente um null
+	//Caso o espaço bonus esteja ativado, coloca um elemento EspacoBonus início da pilha.
 	public void inicializa(ElementoGrafico elemento) {
-		this.pilhaDeElementos[1] = elemento;
+		if(this.gerenciador.isEspacoBonusAtivado()){
+			if(elemento instanceof Pontuavel){
+				this.pilhaDeElementos[0] = elemento;
+			}else{
+				this.pilhaDeElementos[0] = new EspacoBonus();
+				this.pilhaDeElementos[1] = elemento;
+			}
+		}else{
+			this.pilhaDeElementos[1] = elemento;
+		}
 	}
 
 	/**
