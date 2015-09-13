@@ -81,5 +81,4 @@ public class PosicaoNoMapa implements ElementoGrafico{
 	public void liberaEspacoNaPilha() {
 		this.pilhaDeElementos[1] = null;
 	}
-
 }

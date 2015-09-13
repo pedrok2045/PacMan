@@ -6,20 +6,21 @@ package br.com.desafio;
  */
 public class Pacman extends Protagonista {
 
+	private PosicaoNoMapa motorista;
+	
 	@Override
 	public String print() {
 		return " X ";
 	}
 
 	@Override
-	public void recebeMotorista(PosicaoNoMapa posicaoNoMapa) {
-		// TODO Auto-generated method stub
+	public void recebeMotorista(PosicaoNoMapa motorista) {
+		this.motorista = motorista;
 		
 	}
 
 	@Override
 	public boolean validaSentidoDoMovimento() {
 		return false;
-		
 	}
 }
