@@ -20,6 +20,7 @@ public class Jogo{
 		this.gerenciador = new Gerenciador();
 		this.gerenciador.setJogo(this);
 		gerenciador.carregarMapaInicial();
+		gerenciador.iniciarMovimento();
 		return this;
 	}
 	

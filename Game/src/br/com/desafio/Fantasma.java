@@ -17,7 +17,6 @@ public class Fantasma extends ElementoAutoMovivel {
 
 	@Override
 	public void recebeMotorista(PosicaoNoMapa posicaoNoMapa) {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -140,6 +140,8 @@ public class Mapa {
 		return false;
 	}
 
+	//Este método retorna a próxima PosicaoNoMapa após o Elemento
+	//que foi passado como argumento.
 	public PosicaoNoMapa getProximaPosicao(Coordenada coordenada) {
 		if (this.ehPosicaoValida(coordenada.adicionaPosicao(0, 1))) {
 			Coordenada posicaoFinal = coordenada.adicionaPosicao(0, 1);
@@ -152,5 +154,11 @@ public class Mapa {
 		} else {
 			return null;
 		}
+	}
+	
+	//move um elemento de uma PosicaoNoMapa para outra.
+	public void realocarElementos(Coordenada posicaoInicial, Coordenada posicaoFinal){
+		this.getPosicaoNoMapa(posicaoFinal).recebeElemento(this.getPosicaoNoMapa(posicaoInicial).getElemento());
+		this.getPosicaoNoMapa(posicaoInicial).liberaEspacoNaPilha();
 	}
 }

@@ -9,5 +9,4 @@ public interface ElementoMovel extends ElementoGrafico{
 
 	//para ter acesso à PosicaoNoMapa onde este elemento está no momento
 	void recebeMotorista(PosicaoNoMapa posicaoNoMapa);
-
 }

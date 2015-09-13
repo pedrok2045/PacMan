@@ -62,4 +62,8 @@ public class Gerenciador {
 	public void setEspacoBonusAtivado(boolean espacoBonusAtivado) {
 		this.espacoBonusAtivado = espacoBonusAtivado;
 	}
+
+	public void iniciarMovimento() {
+		this.pacman.capturarMovimento();
+	}
 }

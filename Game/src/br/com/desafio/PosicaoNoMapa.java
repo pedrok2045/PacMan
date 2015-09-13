@@ -65,5 +65,21 @@ public class PosicaoNoMapa implements ElementoGrafico{
 		}
 		return " . ";
 	}
+	
+	//retorna o elemento gráfico que está no topo da pilha de elementos
+	public ElementoGrafico getElemento() {
+		return this.pilhaDeElementos[1];
+	}
+
+	//recebe um elemento, de acordo com suas características
+	public void recebeElemento(ElementoGrafico elemento) {
+		
+	}
+
+	//após o elemento se mover, este método é invocado pelo mapa
+	//para liberar espaço na pilha de elementos.
+	public void liberaEspacoNaPilha() {
+		this.pilhaDeElementos[1] = null;
+	}
 
 }

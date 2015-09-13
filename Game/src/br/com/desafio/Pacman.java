@@ -17,4 +17,9 @@ public class Pacman extends Protagonista {
 		
 	}
 
+	@Override
+	public boolean validaSentidoDoMovimento() {
+		return false;
+		
+	}
 }
