@@ -9,7 +9,7 @@ public class Gerenciador {
 	private Mapa mapa;
 	private int totalAntagonistas;
 	private int totalElementosAutoMoviveis;
-	private boolean espacoBonusAtivado;
+	private boolean espacoBonusAtivado = true;
 	private Pacman pacman;
 	private Jogo jogo;
 	
@@ -64,6 +64,20 @@ public class Gerenciador {
 	}
 
 	public void iniciarMovimento() {
-		this.pacman.capturarMovimento();
+		this.pacman.metodoQueProvidenciaSentidoParaOMovimento();
+	}
+
+	public void marcaPonto(int pontuacao) {
+		this.jogo.marcarPonto(pontuacao);
+		
+	}
+	
+	public void aoFinalizarMovimentoDoPacman(){
+		this.mapa.imprimir();
+		this.iniciarAutoMoviveis();
+	}
+
+	public void iniciarAutoMoviveis() {
+		System.out.println("iniciando movimento dos automoviveis");
 	}
 }

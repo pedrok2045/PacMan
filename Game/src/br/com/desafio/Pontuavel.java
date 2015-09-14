@@ -6,5 +6,11 @@ package br.com.desafio;
  *
  */
 public interface Pontuavel {
-
+	
+	default public void marcaPonto(){
+		this.getGerenciador().marcaPonto(this.getPontuacao());
+	}
+	
+	Gerenciador getGerenciador();
+	int getPontuacao();
 }

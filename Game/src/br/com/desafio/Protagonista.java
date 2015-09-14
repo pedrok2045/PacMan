@@ -1,9 +1,11 @@
 package br.com.desafio;
+
 /**
  * 
- * @author Editor
+ * Classe que serve para diferenciar os elementos que tem comportamento oposto
+ * dentro do jogo, no caso default, os fantasmas do pacman
  *
  */
-public abstract class Protagonista extends ElementoControlavel{
+public abstract class Protagonista extends ElementoControlavel {
 
 }

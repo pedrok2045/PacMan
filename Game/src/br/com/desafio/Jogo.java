@@ -27,5 +27,21 @@ public class Jogo{
 	public void marcarPonto(int pontos){
 		this.pontos += pontos;
 	}
+	
+	public void finalizaJogo(String resultadoFinal){
+		System.out.println("Fim de jogo!");
+		switch(resultadoFinal){
+		case "venceu":
+			System.out.println("Parabéns, jogador!");
+			break;
+		case "perdeu":
+			System.out.println("Não foi dessa vez, mas não desista!");
+			break;
+		default:
+				System.out.println("Sua pontuação foi de "+this.pontos+" pontos.");
+			break;
+		}
+		
+	}
 
 }

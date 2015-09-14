@@ -14,11 +14,13 @@ public class Mapa {
 	private List<ArrayList<PosicaoNoMapa>> mapa;
 	private int linhas;
 	private Gerenciador gerenciador;
+	private ControladorDeElementos controlador;
 
 	public Mapa(Gerenciador gerenciador) {
 		this.gerenciador = gerenciador;
 		this.mapa = new ArrayList<>();
 		this.linhas = 15;
+		this.controlador = new ControladorDeElementos(this, this.gerenciador);
 	}
 
 	public Mapa carregaMapaInicial() {
@@ -39,15 +41,15 @@ public class Mapa {
 					for (int i = 0; i < this.linhas; i++) {
 
 						this.mapa.get(linhaSendoComposta).add(
-								new PosicaoNoMapa(this.gerenciador, this,
+								new PosicaoNoMapa(this.gerenciador, this.controlador,
 										new Coordenada(linhaSendoComposta, i)));
 
 						// Para cada objeto Posição no Mapa, atribui um
 						// elemento, de acordo com o mapa carregado
-						ElementoGrafico elemento = ControladorDeElementos
+						ElementoGrafico elemento = this.controlador
 								.getElemento(linha.substring(i, i + 1));
 						if (elemento instanceof ElementoMovel) {
-							((ElementoMovel) elemento).recebeMotorista(this
+							((ElementoMovel) elemento).setPosicaoNoMapa(this
 									.getPosicaoNoMapa(new Coordenada(
 											linhaSendoComposta, i)));
 							if (elemento instanceof ElementoAutoMovivel) {
@@ -135,7 +137,7 @@ public class Mapa {
 	 */
 	private boolean ehValido(int posicao, int limiteAEsquerda,
 			int limiteADireita) {
-		if (posicao >= limiteADireita && posicao <= limiteADireita)
+		if (posicao >= limiteAEsquerda && posicao <= limiteADireita)
 			return true;
 		return false;
 	}

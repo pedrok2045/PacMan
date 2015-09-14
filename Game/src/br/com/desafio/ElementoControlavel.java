@@ -15,7 +15,8 @@ public abstract class ElementoControlavel implements ElementoMovel {
 	 * escolhido pelo jogador, o analisa para ver se pode se mover para aquela direção
 	 * então executa o movimento.
 	 */
-	public void capturarMovimento() {
+	public void capturaMovimento() {
+		System.out.println("iniciando captura do movimento");
 		try (Scanner scan = new Scanner(System.in)) {
 			String sentido;
 			boolean comandoValido = false;
@@ -41,19 +42,6 @@ public abstract class ElementoControlavel implements ElementoMovel {
 				}
 
 			} while (comandoValido == false);
-
 		}
 	}
-
-	//após confirma que pode mover o elemento naquela posição, inicializa
-	//o processo.
-	private void analisaMovimento(int linha, int coluna) {
-		if(this.validaSentidoDoMovimento()){
-			//implementar
-		}
-	}
-
-	//valida que naquela direcao haja um espaço ou que o elemento pode
-	//se mover para aquela direcao.
-	public abstract boolean validaSentidoDoMovimento();
 }
