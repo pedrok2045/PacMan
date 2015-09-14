@@ -4,70 +4,60 @@ package br.com.desafio;
  * Classe que representa um elemento do jogo
  *
  */
-public class Fantasma extends ElementoAutoMovivel {
+public class Fantasma extends Antagonista {
 
 	private Mapa mapa;
 	private PosicaoNoMapa posicaoNoMapa;
 	private Gerenciador gerenciador;
+	private int id;
+	private PosicaoNoMapa posicaoInicial;
 	
 	public Fantasma(Mapa mapa, Gerenciador gerenciador) {
 		this.mapa = mapa;
 		this.gerenciador = gerenciador;
 	}
-	
-	@Override
-	public void aoEncontrarProtagonista() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void aoEncontrarAntagonista() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void aoEncontrarPontuavel(Pontuavel elemento) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setPosicaoNoMapa(PosicaoNoMapa posicaoNoMapa) {
-		this.posicaoNoMapa = posicaoNoMapa;
-		
-	}
-
-	@Override
-	public void metodoQueProvidenciaSentidoParaOMovimento() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public PosicaoNoMapa getPosicaoNoMapaDesteElemento() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Mapa getMapa() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public String print() {
-		// TODO Auto-generated method stub
 		return " F ";
 	}
 
 	@Override
-	public void acaoAposSeMover() {
-		// TODO Auto-generated method stub
-		
+	public void aoEncontrarProtagonista() {
+		this.gerenciador.finalizaJogo("perdeu");
 	}
 
-	
+	@Override
+	public void acaoAposSeMover() {
+		this.gerenciador.moverAutomoviveis();
+	}
+	@Override
+	public void setPosicaoNoMapa(PosicaoNoMapa posicaoNoMapa) {
+		this.posicaoNoMapa = posicaoNoMapa;
+	}
+
+	@Override
+	public void metodoQueProvidenciaSentidoParaOMovimento() {
+		this.definaNovaPosicao();
+	}
+
+	@Override
+	public PosicaoNoMapa getPosicaoNoMapaDesteElemento() {
+		return this.posicaoNoMapa;
+	}
+
+	@Override
+	public Mapa getMapa() {
+		return this.mapa;
+	}
+
+	@Override
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public int getId() {
+		return this.id;
+	}
 }

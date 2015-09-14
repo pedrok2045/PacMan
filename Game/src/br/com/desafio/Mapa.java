@@ -53,9 +53,10 @@ public class Mapa {
 									.getPosicaoNoMapa(new Coordenada(
 											linhaSendoComposta, i)));
 							if (elemento instanceof ElementoAutoMovivel) {
-								this.gerenciador.adicionaElementoAutoMovivel();
+								this.gerenciador.adicionaAutomovivel(((ElementoAutoMovivel)elemento));
 							}else if(elemento instanceof Pacman){
 								this.gerenciador.setPacman((Pacman)elemento);
+								this.gerenciador.setPosicaoDoPacman(this.getPosicaoNoMapa(new Coordenada(linhaSendoComposta, i)).getCoordenada());
 							}
 						}
 						if(elemento instanceof Antagonista){
@@ -99,7 +100,11 @@ public class Mapa {
 	}
 
 	public PosicaoNoMapa getPosicaoNoMapa(Coordenada posicao) {
-		return this.mapa.get(posicao.getLinha()).get(posicao.getColuna());
+		if(this.ehPosicaoValida(posicao)){
+			return this.mapa.get(posicao.getLinha()).get(posicao.getColuna());
+		}else{
+			return null;
+		}
 	}
 
 	public int getLinhas() {
@@ -144,23 +149,16 @@ public class Mapa {
 
 	//Este método retorna a próxima PosicaoNoMapa após o Elemento
 	//que foi passado como argumento.
-	public PosicaoNoMapa getProximaPosicao(Coordenada coordenada) {
-		if (this.ehPosicaoValida(coordenada.adicionaPosicao(0, 1))) {
-			Coordenada posicaoFinal = coordenada.adicionaPosicao(0, 1);
-			return this.getPosicaoNoMapa(posicaoFinal);
-		} else if (coordenada.getLinha() <= this.linhas - 1
-				&& coordenada.getColuna() + 1 <= this.linhas - 1) {
-			Coordenada posicaoFinal = new Coordenada(coordenada.getLinha() + 1,
-					0);
-			return this.getPosicaoNoMapa(posicaoFinal);
-		} else {
-			return null;
+	public PosicaoNoMapa getProximaPosicao(Coordenada posicao) {
+		if(posicao.getLinha() <= this.linhas-1 && posicao.getColuna() < this.linhas-1){
+			return this.getPosicaoNoMapa(posicao.adicionaPosicao(0, 1));
+		}else if(posicao.getLinha() < this.linhas-1 && posicao.getColuna() == this.linhas-1){
+			return this.getPosicaoNoMapa(posicao.adicionaPosicao(1, -linhas+1));
 		}
+		return null;
 	}
-	
-	//move um elemento de uma PosicaoNoMapa para outra.
-	public void realocarElementos(Coordenada posicaoInicial, Coordenada posicaoFinal){
-		this.getPosicaoNoMapa(posicaoFinal).recebeElemento(this.getPosicaoNoMapa(posicaoInicial).getElemento());
-		this.getPosicaoNoMapa(posicaoInicial).liberaEspacoNaPilha();
+
+	public PosicaoNoMapa pegaPrimeiraPosicaoDoMapa() {
+		return this.getPosicaoNoMapa(new Coordenada(0, 0));
 	}
 }

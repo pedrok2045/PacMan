@@ -1,4 +1,7 @@
 package br.com.desafio;
+
+import java.util.ArrayList;
+
 /**
  * 
  * Classe abstrata que conterá o algoritmo que todos os elementos que se movem
@@ -6,5 +9,39 @@ package br.com.desafio;
  *
  */
 public abstract class ElementoAutoMovivel implements ElementoMovel{
+	private ArrayList<Integer> selecionados;
+	
+	private void iniciar(){
+		this.selecionados = new ArrayList<>();
+		definaNovaPosicao();
+	}
 
+	public void definaNovaPosicao() {
+		int random;
+
+		do {
+			random = (int) Math.ceil(Math.random() * 4) - 1;
+		} while (selecionados.indexOf(random) >= 0);
+		selecionados.add(random);
+		
+		switch (selecionados.get(selecionados.size()-1)) {
+		
+		case 0:// frente
+			this.analisaMovimento(-1, 0);
+		case 1:// direita
+			this.analisaMovimento(0, 1);
+		case 2:// baixo
+			this.analisaMovimento(1, 0);
+		case 3:// esquerda
+			this.analisaMovimento(0, -1);
+		}
+		
+	}
+
+	public void move() {
+		this.iniciar();
+	}
+	
+	public abstract void setId(int id);
+	public abstract int getId();
 }

@@ -7,5 +7,5 @@ package br.com.desafio;
  *
  */
 public abstract class Protagonista extends ElementoControlavel {
-
+	public void aoEncontrarProtagonista() {};//para protagonistas interagirem, implementar este método.
 }

@@ -20,8 +20,12 @@ public class Jogo{
 		this.gerenciador = new Gerenciador();
 		this.gerenciador.setJogo(this);
 		gerenciador.carregarMapaInicial();
-		gerenciador.iniciarMovimento();
+		this.iniciaTurno();
 		return this;
+	}
+	
+	public void iniciaTurno(){
+		this.gerenciador.proximoTurno();
 	}
 	
 	public void marcarPonto(int pontos){
@@ -37,11 +41,15 @@ public class Jogo{
 		case "perdeu":
 			System.out.println("Não foi dessa vez, mas não desista!");
 			break;
-		default:
-				System.out.println("Sua pontuação foi de "+this.pontos+" pontos.");
-			break;
 		}
-		
+		System.out.println("Sua pontuação foi de "+this.pontos+" pontos.");
 	}
-
+	
+	public void verificaQuantidadeDeAntagonistas(){
+		if(this.gerenciador.getTotalAntagonistas() == 0){
+			this.finalizaJogo("venceu");
+		}else{
+			//this.gerenciador.iniciarAutoMoviveis();
+		}
+	}
 }

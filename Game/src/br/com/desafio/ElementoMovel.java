@@ -14,23 +14,19 @@ public interface ElementoMovel extends ElementoGrafico {
 	 * método analisa se o elemento pode se mover para a casa de destino.
 	 */
 	default void analisaMovimento(int linha, int coluna) {
-		System.out.println("iniciando analise do movimento");
 		Coordenada posicaoFinal = this.getPosicaoNoMapaDesteElemento().getCoordenada().adicionaPosicao(linha, coluna);
 		if (this.getMapa().ehPosicaoValida(posicaoFinal)) {
-			System.out.println("é posicao valida");
 			if (this.validaSentidoDoMovimento(posicaoFinal)) {
 				this.executaMovimento(posicaoFinal);
 			} else {
 				this.metodoQueProvidenciaSentidoParaOMovimento();
 			}
 		} else {
-			System.out.println("nao é posicao valida");
 			this.metodoQueProvidenciaSentidoParaOMovimento();
 		}
 	}
 
 	default boolean validaSentidoDoMovimento(Coordenada posicaoFinal) {
-		System.out.println("02");
 		if (this.getMapa().getPosicaoNoMapa(posicaoFinal).getElemento() instanceof ElementoSolido) {
 			return false;
 		}
@@ -43,7 +39,6 @@ public interface ElementoMovel extends ElementoGrafico {
 	 * entre os elemento
 	 */
 	default void executaMovimento(Coordenada posicaoFinal) {
-		System.out.println("03");
 		ElementoGrafico elementoDaPosicaoFinal = this.getMapa().getPosicaoNoMapa(posicaoFinal).getElemento();
 		if (elementoDaPosicaoFinal instanceof Pontuavel) {
 			this.aoEncontrarPontuavel((Pontuavel) elementoDaPosicaoFinal);
@@ -53,9 +48,10 @@ public interface ElementoMovel extends ElementoGrafico {
 			this.aoEncontrarAntagonista();
 		}
 
+		System.out.println(this.getPosicaoNoMapaDesteElemento().getElemento());
+		
 		this.getMapa().getPosicaoNoMapa(posicaoFinal)
-				.recebeElemento(this.getPosicaoNoMapaDesteElemento().getElemento());
-		this.getPosicaoNoMapaDesteElemento().liberaEspacoNaPilha();
+				.recebeElemento(this.getPosicaoNoMapaDesteElemento());
 		this.acaoAposSeMover();
 	}
 

@@ -6,10 +6,13 @@ package br.com.desafio;
  */
 public class ControladorDeElementos {
 	
+	private static Integer contador;
+	
 	private Mapa mapa;
 	private Gerenciador gerenciador;
 	
 	public ControladorDeElementos(Mapa mapa, Gerenciador gerenciador) {
+		contador = 0;
 		this.mapa = mapa;
 		this.gerenciador = gerenciador;
 	}
@@ -25,5 +28,10 @@ public class ControladorDeElementos {
 			return new Pacman(this.mapa, this.gerenciador);
 		}
 		return null;
+	}
+	
+	public Integer getElementoId(){
+		contador++;
+		return contador;
 	}
 }

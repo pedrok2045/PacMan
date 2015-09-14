@@ -16,7 +16,6 @@ public abstract class ElementoControlavel implements ElementoMovel {
 	 * então executa o movimento.
 	 */
 	public void capturaMovimento() {
-		System.out.println("iniciando captura do movimento");
 		try (Scanner scan = new Scanner(System.in)) {
 			String sentido;
 			boolean comandoValido = false;

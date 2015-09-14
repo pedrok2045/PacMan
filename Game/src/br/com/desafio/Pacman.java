@@ -21,18 +21,11 @@ public class Pacman extends Protagonista {
 		super.capturaMovimento();
 	}
 
-
-	@Override
-	public void aoEncontrarProtagonista() {
-		// TODO Auto-generated method stub
-	}
-
-
 	@Override
 	public void aoEncontrarAntagonista() {
 		this.gerenciador.eliminaAntagonista();
+		this.gerenciador.verificaQuantidadeDeAntagonistas();
 	}
-
 
 	@Override
 	public void aoEncontrarPontuavel(Pontuavel elemento) {
@@ -50,26 +43,16 @@ public class Pacman extends Protagonista {
 		return this.mapa;
 	}
 
-	private PosicaoNoMapa motorista;
 	
 	@Override
 	public String print() {
 		return " X ";
 	}
-	
-	public void setGerenciador(Gerenciador gerenciador){
-		this.gerenciador = gerenciador;
-	}
-
 
 	@Override
 	public void acaoAposSeMover() {
-		this.gerenciador.aoFinalizarMovimentoDoPacman();
+		this.gerenciador.proximoTurno();
 	}
-	public void recebeMotorista(PosicaoNoMapa motorista) {
-		this.motorista = motorista;
-	}
-
 
 	@Override
 	public void setPosicaoNoMapa(PosicaoNoMapa posicaoNoMapa) {
@@ -78,5 +61,9 @@ public class Pacman extends Protagonista {
 	public boolean validaSentidoDoMovimento() {
 		return false;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Pacman";
+	}
 }

@@ -19,7 +19,7 @@ package br.com.desafio;
  * pontuável, no entanto, sua pontuação é negativa.
  *
  */
-public class PosicaoNoMapa implements ElementoGrafico {
+public class PosicaoNoMapa {
 
 	// essa variável guarda os ElementosGraficos que estão em cada uma das
 	// posições no mapa
@@ -63,11 +63,12 @@ public class PosicaoNoMapa implements ElementoGrafico {
 	 * tenha nenhum elemento, ele retorna o seu próprio símbolo, que indica um
 	 * espaço vazio.
 	 * 
-	 * pode-se usar um for aqui e criar a interface a Pontuável...
 	 */
 	public String print() {
 		if (this.pilhaDeElementos[1] != null) {
 			return this.pilhaDeElementos[1].print();
+		}else if(this.pilhaDeElementos[0] != null){
+			return this.pilhaDeElementos[0].print();
 		}
 		return " . ";
 	}
@@ -78,20 +79,28 @@ public class PosicaoNoMapa implements ElementoGrafico {
 	}
 
 	// recebe um elemento, de acordo com suas características
-	public void recebeElemento(ElementoGrafico elemento) {
-		this.pilhaDeElementos[1] = elemento;
+	public void recebeElemento(PosicaoNoMapa posicao) {
+		if((!(posicao.getElemento() instanceof Protagonista)) && this.pilhaDeElementos[1] instanceof Pontuavel){
+			this.pilhaDeElementos[0] = this.pilhaDeElementos[1];
+			this.pilhaDeElementos[1] = posicao.getElemento();
+		}else{
+			this.pilhaDeElementos[1] = posicao.getElemento();
+			
+		}
+		((ElementoMovel)this.pilhaDeElementos[1]).setPosicaoNoMapa(this);
+		this.liberaEspacoNaPilha(posicao);
 	}
 
 	// após o elemento se mover, este método é invocado pelo mapa
 	// para liberar espaço na pilha de elementos.
 	//após o elemento se mover, este método é invocado
 	//para liberar espaço na pilha de elementos.
-	public void liberaEspacoNaPilha() {
-		if (this.pilhaDeElementos[0] != null) {
-			this.pilhaDeElementos[1] = this.pilhaDeElementos[0];
-			this.pilhaDeElementos[0] = null;
-		} else {
-			this.pilhaDeElementos[1] = null;
+	public void liberaEspacoNaPilha(PosicaoNoMapa elemento) {
+		if(elemento.pilhaDeElementos[0] != null){
+			elemento.pilhaDeElementos[1] = elemento.pilhaDeElementos[0];
+			elemento.pilhaDeElementos[0] = null;
+		}else{
+			elemento.pilhaDeElementos[1] = null;
 		}
 
 	}

@@ -8,6 +8,7 @@ public class EspacoBonus implements ElementoEstatico, Pontuavel {
 
 	private int pontuacao;
 	private Gerenciador gerenciador;
+	private int id;
 	
 	public EspacoBonus(Gerenciador gerenciador, int pontuacao) {
 		this.gerenciador = gerenciador;
@@ -30,5 +31,4 @@ public class EspacoBonus implements ElementoEstatico, Pontuavel {
 	public int getPontuacao() {
 		return this.pontuacao;
 	}
-
 }

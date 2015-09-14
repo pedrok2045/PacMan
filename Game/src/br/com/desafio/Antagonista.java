@@ -8,6 +8,9 @@ package br.com.desafio;
  * que é por default o Pacman, mas podem ter outros, bastando que implementem a interface Protagonista.
  *
  */
-public interface Antagonista{
-
+public abstract class Antagonista extends ElementoAutoMovivel{
+	@Override
+	public void aoEncontrarAntagonista() {};
+	@Override
+	public void aoEncontrarPontuavel(Pontuavel elemento) {};
 }
