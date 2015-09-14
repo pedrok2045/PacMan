@@ -50,7 +50,8 @@ public class Pacman extends Protagonista {
 		return this.mapa;
 	}
 
-
+	private PosicaoNoMapa motorista;
+	
 	@Override
 	public String print() {
 		return " X ";
@@ -65,11 +66,17 @@ public class Pacman extends Protagonista {
 	public void acaoAposSeMover() {
 		this.gerenciador.aoFinalizarMovimentoDoPacman();
 	}
+	public void recebeMotorista(PosicaoNoMapa motorista) {
+		this.motorista = motorista;
+	}
 
 
 	@Override
 	public void setPosicaoNoMapa(PosicaoNoMapa posicaoNoMapa) {
 		this.posicaoNoMapa = posicaoNoMapa;
+	}
+	public boolean validaSentidoDoMovimento() {
+		return false;
 	}
 
 }

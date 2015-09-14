@@ -84,6 +84,8 @@ public class PosicaoNoMapa implements ElementoGrafico {
 
 	// após o elemento se mover, este método é invocado pelo mapa
 	// para liberar espaço na pilha de elementos.
+	//após o elemento se mover, este método é invocado
+	//para liberar espaço na pilha de elementos.
 	public void liberaEspacoNaPilha() {
 		if (this.pilhaDeElementos[0] != null) {
 			this.pilhaDeElementos[1] = this.pilhaDeElementos[0];
@@ -101,5 +103,4 @@ public class PosicaoNoMapa implements ElementoGrafico {
 	public void setCoordenada(Coordenada coordenada) {
 		this.coordenada = coordenada;
 	}
-
 }
