@@ -10,7 +10,7 @@ package br.com.desafio;
  */
 public abstract class Antagonista extends ElementoAutoMovivel{
 	@Override
-	public void aoEncontrarAntagonista() {};
+	public void aoEncontrarAntagonista(ElementoGrafico elemento) {};
 	@Override
 	public void aoEncontrarPontuavel(Pontuavel elemento) {};
 }

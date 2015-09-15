@@ -23,17 +23,20 @@ public abstract class ElementoAutoMovivel implements ElementoMovel{
 			random = (int) Math.ceil(Math.random() * 4) - 1;
 		} while (selecionados.indexOf(random) >= 0);
 		selecionados.add(random);
-		
 		switch (selecionados.get(selecionados.size()-1)) {
 		
 		case 0:// frente
 			this.analisaMovimento(-1, 0);
+			break;
 		case 1:// direita
 			this.analisaMovimento(0, 1);
+			break;
 		case 2:// baixo
 			this.analisaMovimento(1, 0);
+			break;
 		case 3:// esquerda
 			this.analisaMovimento(0, -1);
+			break;
 		}
 		
 	}

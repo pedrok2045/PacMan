@@ -53,10 +53,8 @@ public class Mapa {
 									.getPosicaoNoMapa(new Coordenada(
 											linhaSendoComposta, i)));
 							if (elemento instanceof ElementoAutoMovivel) {
+								((ElementoAutoMovivel)elemento).setId(this.controlador.getElementoId());
 								this.gerenciador.adicionaAutomovivel(((ElementoAutoMovivel)elemento));
-							}else if(elemento instanceof Pacman){
-								this.gerenciador.setPacman((Pacman)elemento);
-								this.gerenciador.setPosicaoDoPacman(this.getPosicaoNoMapa(new Coordenada(linhaSendoComposta, i)).getCoordenada());
 							}
 						}
 						if(elemento instanceof Antagonista){

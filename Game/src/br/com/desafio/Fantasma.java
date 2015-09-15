@@ -10,7 +10,6 @@ public class Fantasma extends Antagonista {
 	private PosicaoNoMapa posicaoNoMapa;
 	private Gerenciador gerenciador;
 	private int id;
-	private PosicaoNoMapa posicaoInicial;
 	
 	public Fantasma(Mapa mapa, Gerenciador gerenciador) {
 		this.mapa = mapa;
@@ -29,7 +28,7 @@ public class Fantasma extends Antagonista {
 
 	@Override
 	public void acaoAposSeMover() {
-		this.gerenciador.moverAutomoviveis();
+		this.gerenciador.pegaAutomovivel();
 	}
 	@Override
 	public void setPosicaoNoMapa(PosicaoNoMapa posicaoNoMapa) {

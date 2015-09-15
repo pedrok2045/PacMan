@@ -22,8 +22,8 @@ public class Pacman extends Protagonista {
 	}
 
 	@Override
-	public void aoEncontrarAntagonista() {
-		this.gerenciador.eliminaAntagonista();
+	public void aoEncontrarAntagonista(ElementoGrafico elemento) {
+		this.gerenciador.eliminaAntagonista(elemento);
 		this.gerenciador.verificaQuantidadeDeAntagonistas();
 	}
 
@@ -51,7 +51,7 @@ public class Pacman extends Protagonista {
 
 	@Override
 	public void acaoAposSeMover() {
-		this.gerenciador.proximoTurno();
+		this.gerenciador.iniciarAutoMoviveis();
 	}
 
 	@Override

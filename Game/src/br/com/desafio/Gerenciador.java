@@ -4,30 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe que envia e recebe informações dos elementos do jogo.
- * Somente esta classe tem comunicação direta com o a classe Jogo.
+ * Classe que envia e recebe informações dos elementos do jogo. Somente esta
+ * classe tem comunicação direta com o a classe Jogo.
  *
  */
 public class Gerenciador {
-	
+
 	private Mapa mapa;
 	private int totalAntagonistas;
 	private boolean espacoBonusAtivado;
 	private Pacman pacman;
 	private Jogo jogo;
 	private List<ElementoAutoMovivel> automoviveis;
-	private int ultimoIndiceMovido;
+	private List<Integer> elementosMovidos;
 	private Coordenada posicaoDoPacman;
-	
-	public Gerenciador carregarMapaInicial(){
+
+	public Gerenciador carregarMapaInicial() {
 		this.mapa = new Mapa(this);
-		this.automoviveis = new ArrayList<>();		
+		this.automoviveis = new ArrayList<>();
 		this.mapa.carregaMapaInicial();
 		this.espacoBonusAtivado = true;
 		return this;
 	}
-	
-	public void setJogo(Jogo jogo){
+
+	public void setJogo(Jogo jogo) {
 		this.jogo = jogo;
 	}
 
@@ -38,17 +38,18 @@ public class Gerenciador {
 	public void setTotalAntagonistas(int totalAntagonistas) {
 		this.totalAntagonistas = totalAntagonistas;
 	}
-	
-	public void setPacman(Pacman pacman){
+
+	public void setPacman(Pacman pacman) {
 		this.pacman = pacman;
 	}
 
 	public void adicionaAntagonista() {
 		this.totalAntagonistas++;
 	}
-	
-	public void eliminaAntagonista(){
+
+	public void eliminaAntagonista(ElementoGrafico elemento) {
 		this.totalAntagonistas--;
+		this.automoviveis.remove(((ElementoAutoMovivel) elemento));
 	}
 
 	public boolean isEspacoBonusAtivado() {
@@ -61,34 +62,26 @@ public class Gerenciador {
 
 	public void iniciarMovimento() {
 		ElementoGrafico elemento = this.mapa.getPosicaoNoMapa(this.posicaoDoPacman).getElemento();
-		if(elemento instanceof Pacman){
-			((Pacman)elemento).metodoQueProvidenciaSentidoParaOMovimento();
-		}else{
+		if (elemento instanceof Pacman) {
+			((Pacman) elemento).metodoQueProvidenciaSentidoParaOMovimento();
+		} else {
 			System.out.println("nao é um Pacman");
 		}
 	}
 
 	public void marcaPonto(int pontuacao) {
 		this.jogo.marcarPonto(pontuacao);
-		
-	}
-	
-	public void aoFinalizarMovimentoDoPacman(){
-		//this.iniciarAutoMoviveis();
+
 	}
 
 	public void iniciarAutoMoviveis() {
-		this.ultimoIndiceMovido = -1;
-		this.moverAutomoviveis();
+		this.elementosMovidos = new ArrayList<>();
+		this.pegaAutomovivel();
 	}
 
-	public void moverAutomoviveis() {
-		if(this.ultimoIndiceMovido < this.automoviveis.size()-1){
-			this.ultimoIndiceMovido++;
-			this.automoviveis.get(this.ultimoIndiceMovido).move();
-		}else{
-			this.proximoTurno();
-		}
+	public void moverAutomoviveis(ElementoAutoMovivel elemento) {
+		this.elementosMovidos.add(elemento.getId());
+		elemento.move();
 	}
 
 	public void adicionaAutomovivel(ElementoAutoMovivel elemento) {
@@ -98,8 +91,8 @@ public class Gerenciador {
 	public void finalizaJogo(String resultadoFinal) {
 		this.jogo.finalizaJogo(resultadoFinal);
 	}
-	
-	public void verificaQuantidadeDeAntagonistas(){
+
+	public void verificaQuantidadeDeAntagonistas() {
 		this.jogo.verificaQuantidadeDeAntagonistas();
 	}
 
@@ -108,23 +101,31 @@ public class Gerenciador {
 		this.mapa.imprimir();
 		this.iniciarMovimento();
 	}
-	
-	public void setPosicaoDoPacman(int linha, int coluna){
-		this.posicaoDoPacman = this.posicaoDoPacman.adicionaPosicao(linha, coluna);
-	}
-	public void setPosicaoDoPacman(Coordenada posicao){
-		this.posicaoDoPacman = posicao;
-	}
-	
-	public void pegaPacman(){
-		for(int i = 0 ; i < this.mapa.getMapa().size()-1 ; i++){
-			for(int j = 0 ; j < this.mapa.getMapa().size()-1 ; j++){
-				if(this.mapa.getMapa().get(i).get(j).getElemento() instanceof Pacman){
+
+	public void pegaPacman() {
+		for (int i = 0; i < this.mapa.getMapa().size() - 1; i++) {
+			for (int j = 0; j < this.mapa.getMapa().size() - 1; j++) {
+				if (this.mapa.getMapa().get(i).get(j).getElemento() instanceof Pacman) {
 					this.posicaoDoPacman = new Coordenada(i, j);
-					System.out.println("pacman pego: "+i+" "+j);
 					return;
 				}
 			}
 		}
+	}
+
+	public void pegaAutomovivel() {
+		if (this.elementosMovidos.size() <= this.automoviveis.size()) {
+			for (int i = 0; i < this.mapa.getMapa().size() - 1; i++) {
+				for (int j = 0; j < this.mapa.getMapa().size() - 1; j++) {
+					ElementoGrafico elemento = this.mapa.getMapa().get(i).get(j).getElemento();
+					if (elemento instanceof ElementoAutoMovivel) {
+						if (this.elementosMovidos.indexOf(((ElementoAutoMovivel) elemento).getId()) < 0) {
+							this.moverAutomoviveis(((ElementoAutoMovivel) elemento));
+							this.proximoTurno();
+						}
+					}
+				}
+			}
+		} 
 	}
 }
