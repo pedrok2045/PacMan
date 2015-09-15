@@ -21,6 +21,7 @@ public abstract class ElementoAutoMovivel implements ElementoMovel{
 
 		do {
 			random = (int) Math.ceil(Math.random() * 4) - 1;
+			//selecionados.forEach(System.out::println);
 		} while (selecionados.indexOf(random) >= 0);
 		selecionados.add(random);
 		switch (selecionados.get(selecionados.size()-1)) {

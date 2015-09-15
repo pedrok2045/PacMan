@@ -19,7 +19,6 @@ public class Mapa {
 	public Mapa(Gerenciador gerenciador) {
 		this.gerenciador = gerenciador;
 		this.mapa = new ArrayList<>();
-		this.linhas = 15;
 		this.controlador = new ControladorDeElementos(this, this.gerenciador);
 	}
 
@@ -36,6 +35,7 @@ public class Mapa {
 					this.mapa.add(new ArrayList<PosicaoNoMapa>());
 
 					String linha = scan.nextLine().trim().replaceAll(" ", "");
+					this.linhas = linha.length();
 
 					// atribui àquela linha objetos PosicaoNoMapa
 					for (int i = 0; i < this.linhas; i++) {
@@ -120,11 +120,12 @@ public class Mapa {
 	 * @return boolean
 	 */
 	public boolean ehPosicaoValida(Coordenada posicao) {
-		if (this.ehValido(posicao.getLinha(), 0, this.linhas - 1)
-				&& this.ehValido(posicao.getColuna(), 0, this.linhas - 1)) {
-			return true;
+		if(posicao != null){
+			if (this.ehValido(posicao.getLinha(), 0, this.linhas)
+					&& this.ehValido(posicao.getColuna(), 0, this.linhas)) {
+				return true;
+			}
 		}
-
 		return false;
 	}
 
@@ -140,7 +141,7 @@ public class Mapa {
 	 */
 	private boolean ehValido(int posicao, int limiteAEsquerda,
 			int limiteADireita) {
-		if (posicao >= limiteAEsquerda && posicao <= limiteADireita)
+		if (posicao >= limiteAEsquerda && posicao < limiteADireita)
 			return true;
 		return false;
 	}

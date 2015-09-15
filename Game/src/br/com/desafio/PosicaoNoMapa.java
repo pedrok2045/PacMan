@@ -44,10 +44,10 @@ public class PosicaoNoMapa {
 	// da pilha.
 	public void inicializa(ElementoGrafico elemento) {
 		if (this.gerenciador.isEspacoBonusAtivado()) {
-			if(elemento instanceof Protagonista || elemento instanceof Pontuavel){
+			if(elemento instanceof Protagonista || elemento instanceof ElementoEstatico){
 				this.pilhaDeElementos[0] = null;
 				this.pilhaDeElementos[1] = elemento;
-			}else {
+			}else{
 				this.pilhaDeElementos[0] = controlador.getElemento("*");
 				this.pilhaDeElementos[1] = elemento;
 			}
@@ -65,12 +65,14 @@ public class PosicaoNoMapa {
 	 * 
 	 */
 	public String print() {
-		if (this.pilhaDeElementos[1] != null) {
+		if(this.pilhaDeElementos[1] != null){
 			return this.pilhaDeElementos[1].print();
 		}else if(this.pilhaDeElementos[0] != null){
 			return this.pilhaDeElementos[0].print();
+		}else{
+			return " . ";
 		}
-		return " . ";
+		
 	}
 
 	// retorna o elemento gráfico que está no topo da pilha de elementos

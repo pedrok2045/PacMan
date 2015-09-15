@@ -30,6 +30,7 @@ public class Jogo{
 	
 	public void marcarPonto(int pontos){
 		this.pontos += pontos;
+		System.out.println("+"+pontos+"\n"+"Total de pontos: "+this.pontos);
 	}
 	
 	public void finalizaJogo(String resultadoFinal){
@@ -42,14 +43,13 @@ public class Jogo{
 			System.out.println("Não foi dessa vez, mas não desista!");
 			break;
 		}
-		System.out.println("Sua pontuação foi de "+this.pontos+" pontos.");
+		System.out.println("Sua pontuação total foi de "+this.pontos+" pontos.");
+		System.exit(0);
 	}
 	
 	public void verificaQuantidadeDeAntagonistas(){
 		if(this.gerenciador.getTotalAntagonistas() == 0){
 			this.finalizaJogo("venceu");
-		}else{
-			//this.gerenciador.iniciarAutoMoviveis();
 		}
 	}
 }

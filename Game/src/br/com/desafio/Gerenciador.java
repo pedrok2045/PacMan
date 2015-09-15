@@ -64,8 +64,6 @@ public class Gerenciador {
 		ElementoGrafico elemento = this.mapa.getPosicaoNoMapa(this.posicaoDoPacman).getElemento();
 		if (elemento instanceof Pacman) {
 			((Pacman) elemento).metodoQueProvidenciaSentidoParaOMovimento();
-		} else {
-			System.out.println("nao é um Pacman");
 		}
 	}
 
@@ -103,8 +101,8 @@ public class Gerenciador {
 	}
 
 	public void pegaPacman() {
-		for (int i = 0; i < this.mapa.getMapa().size() - 1; i++) {
-			for (int j = 0; j < this.mapa.getMapa().size() - 1; j++) {
+		for (int i = 0; i < this.mapa.getMapa().size(); i++) {
+			for (int j = 0; j < this.mapa.getMapa().size(); j++) {
 				if (this.mapa.getMapa().get(i).get(j).getElemento() instanceof Pacman) {
 					this.posicaoDoPacman = new Coordenada(i, j);
 					return;
@@ -115,8 +113,8 @@ public class Gerenciador {
 
 	public void pegaAutomovivel() {
 		if (this.elementosMovidos.size() <= this.automoviveis.size()) {
-			for (int i = 0; i < this.mapa.getMapa().size() - 1; i++) {
-				for (int j = 0; j < this.mapa.getMapa().size() - 1; j++) {
+			for (int i = 0; i < this.mapa.getMapa().size(); i++) {
+				for (int j = 0; j < this.mapa.getMapa().size(); j++) {
 					ElementoGrafico elemento = this.mapa.getMapa().get(i).get(j).getElemento();
 					if (elemento instanceof ElementoAutoMovivel) {
 						if (this.elementosMovidos.indexOf(((ElementoAutoMovivel) elemento).getId()) < 0) {
