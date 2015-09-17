@@ -14,9 +14,7 @@ public class Jogo{
 	private int pontos;
 	
 	public Jogo inicializar(){
-		
 		this.pontos = 0;
-		
 		this.gerenciador = new Gerenciador();
 		this.gerenciador.setJogo(this);
 		gerenciador.carregarMapaInicial();
@@ -28,9 +26,10 @@ public class Jogo{
 		this.gerenciador.proximoTurno();
 	}
 	
-	public void marcarPonto(int pontos){
+	public Jogo marcarPonto(int pontos){
 		this.pontos += pontos;
 		System.out.println("+"+pontos+"\n"+"Total de pontos: "+this.pontos);
+		return this;
 	}
 	
 	public void finalizaJogo(String resultadoFinal){
@@ -47,9 +46,10 @@ public class Jogo{
 		System.exit(0);
 	}
 	
-	public void verificaQuantidadeDeAntagonistas(){
+	public Jogo verificaQuantidadeDeAntagonistas(){
 		if(this.gerenciador.getTotalAntagonistas() == 0){
 			this.finalizaJogo("venceu");
 		}
+		return this;
 	}
 }

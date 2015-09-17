@@ -21,33 +21,30 @@ package br.com.desafio;
  */
 public class PosicaoNoMapa {
 
-	// essa variável guarda os ElementosGraficos que estão em cada uma das
-	// posições no mapa
 	private ElementoGrafico pilhaDeElementos[];
 	private Coordenada coordenada;
 	private Gerenciador gerenciador;
 	private ControladorDeElementos controlador;
 
-	public PosicaoNoMapa(Gerenciador gerenciador, ControladorDeElementos controlador,
-			Coordenada coordenada) {
+	public PosicaoNoMapa(Gerenciador gerenciador, ControladorDeElementos controlador, Coordenada coordenada) {
 		this.gerenciador = gerenciador;
 		this.controlador = controlador;
 		this.setCoordenada(coordenada);
 		this.pilhaDeElementos = new ElementoGrafico[2];
 	}
 
-	// esse método é usado somente pelo mapa, pois coloca um elemento na posição
-	// 1
-	// da PosicaoNoMapa ignorando se tem algo nela, pois considera q tenha
-	// somente um null
-	// Caso o espaço bonus esteja ativado, coloca um elemento EspacoBonus início
-	// da pilha.
+	/*
+	 * esse método é usado somente pelo mapa, pois coloca um elemento na posição
+	 * 1 da PosicaoNoMapa ignorando se tem algo nela, pois considera q tenha
+	 * somente um null Caso o espaço bonus esteja ativado, coloca um elemento
+	 * EspacoBonus no início da pilha.
+	 */
 	public void inicializa(ElementoGrafico elemento) {
 		if (this.gerenciador.isEspacoBonusAtivado()) {
-			if(elemento instanceof Protagonista || elemento instanceof ElementoEstatico){
+			if (elemento instanceof Protagonista || elemento instanceof ElementoEstatico) {
 				this.pilhaDeElementos[0] = null;
 				this.pilhaDeElementos[1] = elemento;
-			}else{
+			} else {
 				this.pilhaDeElementos[0] = controlador.getElemento("*");
 				this.pilhaDeElementos[1] = elemento;
 			}
@@ -65,43 +62,39 @@ public class PosicaoNoMapa {
 	 * 
 	 */
 	public String print() {
-		if(this.pilhaDeElementos[1] != null){
+		if (this.pilhaDeElementos[1] != null) {
 			return this.pilhaDeElementos[1].print();
-		}else if(this.pilhaDeElementos[0] != null){
+		} else if (this.pilhaDeElementos[0] != null) {
 			return this.pilhaDeElementos[0].print();
-		}else{
+		} else {
 			return " . ";
 		}
-		
+
 	}
 
-	// retorna o elemento gráfico que está no topo da pilha de elementos
 	public ElementoGrafico getElemento() {
 		return this.pilhaDeElementos[1];
 	}
 
 	// recebe um elemento, de acordo com suas características
 	public void recebeElemento(PosicaoNoMapa posicao) {
-		if((!(posicao.getElemento() instanceof Protagonista)) && this.pilhaDeElementos[1] instanceof Pontuavel){
+		if ((!(posicao.getElemento() instanceof Protagonista)) && this.pilhaDeElementos[1] instanceof Pontuavel) {
 			this.pilhaDeElementos[0] = this.pilhaDeElementos[1];
 			this.pilhaDeElementos[1] = posicao.getElemento();
-		}else{
+		} else {
 			this.pilhaDeElementos[1] = posicao.getElemento();
-			
+
 		}
-		((ElementoMovel)this.pilhaDeElementos[1]).setPosicaoNoMapa(this);
+		((ElementoMovel) this.pilhaDeElementos[1]).setPosicaoNoMapa(this);
 		this.liberaEspacoNaPilha(posicao);
 	}
 
-	// após o elemento se mover, este método é invocado pelo mapa
-	// para liberar espaço na pilha de elementos.
-	//após o elemento se mover, este método é invocado
-	//para liberar espaço na pilha de elementos.
+	/*Após o elemento se mover, a representação dele deve ser apagada da posição anterior do mapa, isto que essa classe faz.*/
 	public void liberaEspacoNaPilha(PosicaoNoMapa elemento) {
-		if(elemento.pilhaDeElementos[0] != null){
+		if (elemento.pilhaDeElementos[0] != null) {
 			elemento.pilhaDeElementos[1] = elemento.pilhaDeElementos[0];
 			elemento.pilhaDeElementos[0] = null;
-		}else{
+		} else {
 			elemento.pilhaDeElementos[1] = null;
 		}
 

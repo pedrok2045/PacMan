@@ -22,8 +22,8 @@ public class Gerenciador {
 	public Gerenciador carregarMapaInicial() {
 		this.mapa = new Mapa(this);
 		this.automoviveis = new ArrayList<>();
-		this.mapa.carregaMapaInicial();
 		this.espacoBonusAtivado = true;
+		this.mapa.carregaMapaInicial();
 		return this;
 	}
 
@@ -47,9 +47,15 @@ public class Gerenciador {
 		this.totalAntagonistas++;
 	}
 
+	/*
+	 * remove um objeto Antagonista da contagem e caso seja um
+	 * ElementoAutoMovivel, retira esse elemento da lista para o mesmo não seja
+	 * chamado a se mover.
+	 */
 	public void eliminaAntagonista(ElementoGrafico elemento) {
 		this.totalAntagonistas--;
-		this.automoviveis.remove(((ElementoAutoMovivel) elemento));
+		if (elemento instanceof ElementoAutoMovivel)
+			this.automoviveis.remove(((ElementoAutoMovivel) elemento));
 	}
 
 	public boolean isEspacoBonusAtivado() {
@@ -60,6 +66,10 @@ public class Gerenciador {
 		this.espacoBonusAtivado = espacoBonusAtivado;
 	}
 
+	/*
+	 * Inicia o movimento dos ElementoMovel, começando pelo Pacman e depois os
+	 * ElementoAutoMovivel
+	 */
 	public void iniciarMovimento() {
 		ElementoGrafico elemento = this.mapa.getPosicaoNoMapa(this.posicaoDoPacman).getElemento();
 		if (elemento instanceof Pacman) {
@@ -72,11 +82,20 @@ public class Gerenciador {
 
 	}
 
+	/*
+	 * Inicializa a lista que guarda os elementos que já foram movidos e começa
+	 * a pegar um por um dos ElementoAutoMovivel do mapa.
+	 */
 	public void iniciarAutoMoviveis() {
 		this.elementosMovidos = new ArrayList<>();
 		this.pegaAutomovivel();
 	}
 
+	/*
+	 * Depois que um ElementoAutoMovivel foi pego no mapa, este método é
+	 * invocado para registrar que o mesmo será movido e inicia o processo de
+	 * mover o Elemento.
+	 */
 	public void moverAutomoviveis(ElementoAutoMovivel elemento) {
 		this.elementosMovidos.add(elemento.getId());
 		elemento.move();
@@ -94,12 +113,20 @@ public class Gerenciador {
 		this.jogo.verificaQuantidadeDeAntagonistas();
 	}
 
+	/*
+	 * percorre o mapa para pegar o Pacman, resedesenha o mapa no console e,
+	 * após pegar o pacman, reinicia o movimento dos ElementoMovel
+	 */
 	public void proximoTurno() {
 		this.pegaPacman();
 		this.mapa.imprimir();
 		this.iniciarMovimento();
 	}
 
+	/*
+	 * percorre o mapa para pegar o pacman, então registra a posição do mesmo em
+	 * uma variável do tipo Coordenada.
+	 */
 	public void pegaPacman() {
 		for (int i = 0; i < this.mapa.getMapa().size(); i++) {
 			for (int j = 0; j < this.mapa.getMapa().size(); j++) {
@@ -111,6 +138,11 @@ public class Gerenciador {
 		}
 	}
 
+	/*
+	 * percorre o mapa para pegar cada um dos ElementoAutoMovivel que estiverem
+	 * no jogo, então chama o método que move este elemento e em seguida, chama
+	 * o próximo turno.
+	 */
 	public void pegaAutomovivel() {
 		if (this.elementosMovidos.size() <= this.automoviveis.size()) {
 			for (int i = 0; i < this.mapa.getMapa().size(); i++) {
@@ -124,6 +156,6 @@ public class Gerenciador {
 					}
 				}
 			}
-		} 
+		}
 	}
 }
